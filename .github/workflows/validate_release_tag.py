@@ -3,6 +3,7 @@
 import argparse
 import ast
 from pathlib import Path
+import circus
 
 
 def get_version_from_module(content: str) -> str:
@@ -15,6 +16,7 @@ def get_version_from_module(content: str) -> str:
     except SyntaxError as exception:
         raise IOError('Unable to parse module.') from exception
 
+    breakpoint()
     try:
         return next(
             ast.literal_eval(statement.value) for statement in module.body if isinstance(statement, ast.Assign)
@@ -31,6 +33,6 @@ if __name__ == '__main__':
     tag_prefix = 'refs/tags/'
     assert args.GITHUB_REF.startswith(tag_prefix), f'GITHUB_REF should start with "{tag_prefix}": {args.GITHUB_REF}'
     tag_version = args.GITHUB_REF.removeprefix(tag_prefix)
-    package_version = get_version_from_module(Path('circus/__init__.py').read_text(encoding='utf-8'))
+    package_version = circus.__version__
     error_message = f'The tag version `{tag_version}` is different from the package version `{package_version}`'
     assert tag_version == package_version, error_message

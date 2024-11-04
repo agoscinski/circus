@@ -22,7 +22,9 @@ jobs:
                 python-version: '3.9'
 
         -   name: Validate the tag version against the package version
-            run: python .github/workflows/validate_release_tag.py $GITHUB_REF
+            run: |
+                pip install .
+                python .github/workflows/validate_release_tag.py $GITHUB_REF
 
     ubuntu:
 
