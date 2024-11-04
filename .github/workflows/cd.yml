@@ -9,7 +9,7 @@ jobs:
 
     validate-release-tag:
 
-        if: github.repository == 'circus-tent/circus'
+        #if: github.repository == 'circus-tent/circus'
         runs-on: ubuntu-20.04
 
         steps:
@@ -117,7 +117,7 @@ jobs:
             run: pip install flit~=3.4
 
         -   name: Build and publish
-            run: flit publish
+            run: flit --repository https://test.pypi.org/legacy/ publish
             env:
                 FLIT_USERNAME: __token__
                 FLIT_PASSWORD: ${{ secrets.PYPI_KEY }}
