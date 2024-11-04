@@ -118,8 +118,7 @@ jobs:
 
         -   name: Build and publish
             with:
-                FLIT_INDEX_URL: 'https://test.pypi.org/legacy/'
-            run: flit publish
             env:
                 FLIT_USERNAME: __token__
                 FLIT_PASSWORD: ${{ secrets.PYPI_KEY }}
+                FLIT_INDEX_URL: 'https://test.pypi.org/legacy/'
