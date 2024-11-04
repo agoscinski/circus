@@ -117,7 +117,9 @@ jobs:
             run: pip install flit~=3.4
 
         -   name: Build and publish
-            run: flit publish --repository https://test.pypi.org/legacy/
+            with:
+                FLIT_INDEX_URL: 'https://test.pypi.org/legacy/'
+            run: flit publish
             env:
                 FLIT_USERNAME: __token__
                 FLIT_PASSWORD: ${{ secrets.PYPI_KEY }}
