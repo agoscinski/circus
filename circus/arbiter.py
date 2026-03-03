@@ -236,6 +236,9 @@ class Arbiter(object):
 
     def _ensure_ioloop(self):
         if self.loop is None:
+            # ensure event loop is created
+            from circus.eventloop import get_or_create_event_loop
+            get_or_create_event_loop()
             self.loop = ioloop.IOLoop.current()
 
         def handle_callback_exception(callback):

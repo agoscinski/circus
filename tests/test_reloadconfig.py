@@ -54,9 +54,15 @@ class TestConfig(tornado.testing.AsyncTestCase):
         a.sockets.close_all()
 
     def get_new_ioloop(self):
+        # ensure event loop is created
+        from circus.eventloop import get_or_create_event_loop
+        get_or_create_event_loop()
         return tornado.ioloop.IOLoop.current()
 
     def _load_base_arbiter(self, name='reload_base'):
+        # ensure event loop is created
+        from circus.eventloop import get_or_create_event_loop
+        get_or_create_event_loop()
         loop = tornado.ioloop.IOLoop.current()
         a = Arbiter.load_from_config(_CONF[name], loop=loop)
         a.evpub_socket = FakeSocket()

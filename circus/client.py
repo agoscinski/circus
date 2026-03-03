@@ -36,6 +36,9 @@ class AsyncCircusClient(object):
         get_connection(self.socket, endpoint, ssh_server, ssh_keyfile)
         self._timeout = timeout
         self.timeout = timeout * 1000
+        # ensure event loop is created
+        from circus.eventloop import get_or_create_event_loop
+        get_or_create_event_loop()
         self.stream = ZMQStream(self.socket, tornado.ioloop.IOLoop.current())
 
     def _init_context(self, context):
