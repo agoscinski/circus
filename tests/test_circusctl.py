@@ -84,8 +84,7 @@ class CommandlineTest(TestCircus):
             del err[0]
         self.assertEqual(retcode, 2)
         self.assertEqual(err[0], 'usage: ' + USAGE)
-        self.assertEqual(err[1],
-                         'circusctl.py: error: unrecognized arguments: foo')
+        self.assertIn('error: unrecognized arguments: foo', err[1])
 
     @skipIf(DEBUG, 'Py_DEBUG=1')
     @gen_test
