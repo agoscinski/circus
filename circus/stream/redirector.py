@@ -42,6 +42,10 @@ class Redirector(object):
         self._active = {}
         self.redirect = {'stdout': stdout_redirect, 'stderr': stderr_redirect}
         self.buffer = buffer
+        if not loop:
+            # ensure event loop is created
+            from circus.eventloop import get_or_create_event_loop
+            get_or_create_event_loop()
         self.loop = loop or ioloop.IOLoop.current()
 
     def _start_one(self, fd, stream_name, process, pipe):

@@ -44,6 +44,9 @@ SLEEP = PYTHON + " -c 'import time;time.sleep(%d)'"
 
 def get_ioloop():
     from tornado import ioloop
+    # ensure event loop is created
+    from circus.eventloop import get_or_create_event_loop
+    get_or_create_event_loop()
     return ioloop.IOLoop.current()
 
 

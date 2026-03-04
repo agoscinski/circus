@@ -234,6 +234,10 @@ class Watcher(object):
         self.close_child_stdin = close_child_stdin
         self.close_child_stdout = close_child_stdout
         self.close_child_stderr = close_child_stderr
+        if not loop:
+            # ensure event loop is created
+            from circus.eventloop import get_or_create_event_loop
+            get_or_create_event_loop()
         self.loop = loop or ioloop.IOLoop.current()
 
         if singleton and self.numprocesses not in (0, 1):

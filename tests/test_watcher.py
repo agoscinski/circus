@@ -317,6 +317,9 @@ class SomeWatcher(object):
         self.watcher = None
         self.kw = kw
         if loop is None:
+            # ensure event loop is created
+            from circus.eventloop import get_or_create_event_loop
+            get_or_create_event_loop()
             self.loop = tornado.ioloop.IOLoop.current()
         else:
             self.loop = loop

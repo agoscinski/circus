@@ -31,7 +31,8 @@ def run_process(child_id, test_file=None, recursive=False, num_children=3):
         # or first two second level processes
         for i in range(num_children):
             new_child_id = child_id * 10 + i + 1
-            p = multiprocessing.Process(
+            ctx = multiprocessing.get_context('fork')
+            p = ctx.Process(
                 target=run_process,
                 args=(new_child_id,),
                 kwargs={'recursive': recursive, 'num_children': num_children})
